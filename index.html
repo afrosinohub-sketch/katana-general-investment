@@ -19,6 +19,7 @@ tailwind.config = {
         'katana-blue-light': '#1E5BD6',
         'katana-green': '#10B981',
         'katana-dark': '#0F172A',
+        'katana-darker': '#020617',
         'katana-gray': '#94A3B8',
       },
       fontFamily: {
@@ -46,8 +47,8 @@ tailwind.config = {
 <style>
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #F8FAFC; /* Slight off-white for premium feel */
-  color: #0F172A;
+  background-color: #020617; /* Deep dark for premium tech feel */
+  color: #F8FAFC;
   overflow-x: hidden;
 }
 
@@ -58,10 +59,10 @@ body {
   left: 0;
   width: 0%;
   height: 4px;
-  background: linear-gradient(90deg, #10B981, #1E5BD6);
+  background: linear-gradient(90deg, #10B981, #1E5BD6, #10B981);
   z-index: 100;
   transition: width 0.1s ease-out;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
 }
 
 /* --- Navbar Glassmorphism Effect --- */
@@ -70,11 +71,11 @@ body {
   transition: all 0.4s ease;
 }
 .nav-scrolled {
-  background: rgba(15, 23, 42, 0.85) !important;
+  background: rgba(2, 6, 23, 0.85) !important;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 /* --- Hero Section Ken Burns Effect --- */
@@ -101,9 +102,9 @@ body {
 
 /* --- Modern Neon Buttons --- */
 .btn-primary {
-  background: linear-gradient(135deg, #0D3B85, #1E5BD6);
+  background: linear-gradient(135deg, #10B981, #059669);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 15px rgba(13, 59, 133, 0.4);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
   position: relative;
   overflow: hidden;
 }
@@ -112,13 +113,13 @@ body {
   position: absolute;
   top: 0; left: -100%;
   width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
   transition: 0.5s;
 }
 .btn-primary:hover::after { left: 100%; }
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(13, 59, 133, 0.6);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.6);
 }
 
 .btn-glass {
@@ -128,9 +129,9 @@ body {
   transition: all 0.3s ease;
 }
 .btn-glass:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
 }
 
 .btn-whatsapp {
@@ -144,17 +145,32 @@ body {
 }
 
 /* --- 3D App-like Product Cards --- */
-.product-card {
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-  border: 1px solid #E2E8F0;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  transform-style: preserve-3d;
+.product-card-wrapper {
   perspective: 1000px;
 }
+.product-card {
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.15), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1;
+}
+.product-card:hover::before { opacity: 1; }
 .product-card:hover {
-  transform: translateY(-15px) rotateX(2deg) rotateY(2deg);
-  box-shadow: 0 25px 50px -12px rgba(13, 59, 133, 0.25);
+  transform: translateY(-15px);
+  box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
   border: 1px solid rgba(16, 185, 129, 0.5);
 }
 .product-card img {
@@ -166,22 +182,24 @@ body {
 
 /* Reusable Badges */
 .badge-original {
-  background: rgba(13, 59, 133, 0.95);
+  background: rgba(30, 91, 214, 0.95);
   color: #FFFFFF;
   backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 .badge-free-delivery {
   background: rgba(16, 185, 129, 0.95);
   color: #FFFFFF;
   backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* Glassmorphism Price Tag on Image */
 .price-tag-img {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(2, 6, 23, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   color: #FFF;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
@@ -214,58 +232,90 @@ body {
 
 /* --- Gradient Texts --- */
 .text-gradient-hero {
-  background: linear-gradient(to right, #10B981, #1E5BD6, #FFFFFF);
+  background: linear-gradient(to right, #10B981, #34D399, #FFFFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-title {
+  background: linear-gradient(to right, #FFFFFF, #94A3B8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-price-gradient {
-  background: linear-gradient(to right, #0D3B85, #1E5BD6);
+  background: linear-gradient(to right, #10B981, #34D399);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* --- Grid Pattern Background --- */
 .grid-bg {
-  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* Search Input Custom Focus */
+.search-input {
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: #FFF;
+  transition: all 0.3s ease;
+}
+.search-input::placeholder { color: #64748B; }
 .search-input:focus {
   border-color: #10B981;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15), 0 0 20px rgba(16, 185, 129, 0.2);
+  background: rgba(2, 6, 23, 0.9);
 }
 
-/* Animated Gradient Border for Stats */
+/* Modern Tech Background Mesh */
+.tech-mesh {
+  background-color: #020617;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+    radial-gradient(at 98% 1%, rgba(30, 91, 214, 0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(13, 59, 133, 0.1) 0px, transparent 50%);
+}
+
+/* Stats Card Neon Border */
 .stat-card {
   position: relative;
-  background: #0F172A;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
-.stat-card::before {
+.stat-card:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+.stat-card::after {
   content: '';
   position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(45deg, #0D3B85, #10B981, #1E5BD6);
-  z-index: -1;
-  border-radius: 1rem;
-  filter: blur(2px);
-  opacity: 0.5;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #10B981, transparent);
+  opacity: 0;
   transition: opacity 0.3s;
 }
-.stat-card:hover::before {
-  opacity: 1;
-}
+.stat-card:hover::after { opacity: 1; }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #059669; }
 </style>
 </head>
-<body class="bg-slate-50">
+<body>
 
 <!-- Scroll Progress Indicator -->
 <div id="scroll-progress"></div>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/255717872888" target="_blank" class="float-btn bg-katana-green w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl hover:bg-green-600 transition-colors">
+<a href="https://wa.me/255717872888" target="_blank" class="float-btn bg-katana-green w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl hover:bg-green-600 transition-colors z-50">
   <i class="fab fa-whatsapp"></i>
 </a>
 
@@ -273,20 +323,20 @@ body {
 <header id="navbar" class="fixed top-0 w-full z-50 py-4">
   <nav class="container mx-auto px-6 flex justify-between items-center">
     <a href="#home" class="flex items-center space-x-3">
-      <img src="https://z-cdn-media.chatglm.cn/files/33b33a35-c1ce-4378-8358-b19ace5de102.jpg?auth_key=1886133914-f11abb299dad418597b049602d764f0e-0-2d5aead3dacfc618c77e191645cd9728" alt="Katana Logo" class="h-12 w-12 object-cover rounded-full border-2 border-white/50 shadow-lg">
+      <img src="https://z-cdn-media.chatglm.cn/files/33b33a35-c1ce-4378-8358-b19ace5de102.jpg?auth_key=1886133914-f11abb299dad418597b049602d764f0e-0-2d5aead3dacfc618c77e191645cd9728" alt="Katana Logo" class="h-12 w-12 object-cover rounded-full border-2 border-katana-green/50 shadow-lg shadow-green-500/20">
       <div class="text-white font-bold text-lg tracking-wider hidden sm:block">
         KATANA <span class="text-katana-green">GENERAL</span>
       </div>
     </a>
 
     <ul class="hidden lg:flex space-x-8 text-white/90 font-medium text-sm uppercase tracking-wider">
-      <li><a href="#home" class="hover:text-katana-green transition">Home</a></li>
-      <li><a href="#showcase" class="hover:text-katana-green transition">Showcase</a></li>
-      <li><a href="#products" class="hover:text-katana-green transition">Products</a></li>
-      <li><a href="#brands" class="hover:text-katana-green transition">Brands</a></li>
-      <li><a href="#special-orders" class="hover:text-katana-green transition">Special Orders</a></li>
-      <li><a href="#about" class="hover:text-katana-green transition">About</a></li>
-      <li><a href="#contact" class="hover:text-katana-green transition">Contact</a></li>
+      <li><a href="#home" class="hover:text-katana-green transition relative group">Home <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#showcase" class="hover:text-katana-green transition relative group">Showcase <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#products" class="hover:text-katana-green transition relative group">Products <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#brands" class="hover:text-katana-green transition relative group">Brands <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#special-orders" class="hover:text-katana-green transition relative group">Special Orders <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#about" class="hover:text-katana-green transition relative group">About <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
+      <li><a href="#contact" class="hover:text-katana-green transition relative group">Contact <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-katana-green group-hover:w-full transition-all"></span></a></li>
     </ul>
 
     <a href="#contact" class="hidden lg:flex btn-primary text-white px-6 py-2.5 rounded-full text-sm font-semibold items-center space-x-2">
@@ -297,7 +347,7 @@ body {
   </nav>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden fixed top-0 right-0 h-screen w-2/3 bg-katana-dark/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-6 text-white text-xl">
+  <div id="mobile-menu" class="hidden fixed top-0 right-0 h-screen w-2/3 bg-katana-darker/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-6 text-white text-xl">
     <a href="#home" class="mobile-link hover:text-katana-green">Home</a>
     <a href="#showcase" class="mobile-link hover:text-katana-green">Showcase</a>
     <a href="#products" class="mobile-link hover:text-katana-green">Products</a>
@@ -316,11 +366,11 @@ body {
     <div class="hero-slide" style="background-image: url('https://z-cdn-media.chatglm.cn/files/f89b9055-bdc1-4bc7-893f-d4b2c9c7f342.png?auth_key=1886137054-a2f3e742c65d47c887db40f125c0c723-0-6de8e2637a085b2dcc577107e7942de4');"></div>
   </div>
 
-  <!-- Modern Tech Overlay with Grid -->
-  <div class="absolute inset-0 bg-gradient-to-b from-katana-dark/90 via-katana-blue/60 to-katana-dark/95 z-10 grid-bg"></div>
+  <!-- Modern Tech Overlay with Grid & Mesh -->
+  <div class="absolute inset-0 bg-gradient-to-b from-katana-darker/90 via-katana-darker/70 to-katana-darker z-10 grid-bg"></div>
 
   <div class="relative z-20 h-full flex flex-col justify-center items-center text-center px-6">
-    <div data-aos="fade-down" data-aos-duration="1000" class="bg-katana-green/20 border border-katana-green/40 text-katana-green px-4 py-1 rounded-full text-sm mb-6 backdrop-blur-sm font-semibold flex items-center gap-2">
+    <div data-aos="fade-down" data-aos-duration="1000" class="bg-katana-green/10 border border-katana-green/40 text-katana-green px-4 py-1 rounded-full text-sm mb-6 backdrop-blur-sm font-semibold flex items-center gap-2">
       <i class="fas fa-globe-africa"></i> Tanzania's Trusted Agricultural Partner
     </div>
 
@@ -328,7 +378,7 @@ body {
       Power Meets Performance with <br> <span class="text-gradient-hero">Katana General</span>
     </h1>
 
-    <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" class="text-gray-200 text-lg md:text-xl mb-10 max-w-3xl">
+    <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" class="text-gray-300 text-lg md:text-xl mb-10 max-w-3xl">
       Genuine Parts. Reliable Performance. From Engine to Harvest, We Keep You Moving.
     </p>
 
@@ -348,59 +398,65 @@ body {
 </section>
 
 <!-- 2. International Trust Stats -->
-<section class="py-12 bg-white border-b border-gray-100">
+<section class="py-16 tech-mesh border-b border-white/5">
   <div class="container mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="stat-card p-8 rounded-2xl text-center" data-aos="zoom-in">
-        <i class="fas fa-shield-alt text-4xl text-katana-green mb-3"></i>
-        <h3 class="text-3xl font-extrabold text-white mb-1">100% Genuine</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-wider">Authentic Parts Only</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in">
+        <i class="fas fa-shield-alt text-3xl text-katana-green mb-3"></i>
+        <h3 class="text-3xl font-extrabold text-white mb-1"><span class="counter" data-target="100">0</span>%</h3>
+        <p class="text-gray-400 text-xs uppercase tracking-wider">Genuine Parts</p>
       </div>
-      <div class="stat-card p-8 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="150">
-        <i class="fas fa-truck-fast text-4xl text-katana-green mb-3"></i>
-        <h3 class="text-3xl font-extrabold text-white mb-1">Nationwide</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-wider">Fast & Free Delivery</p>
+      <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="100">
+        <i class="fas fa-truck-fast text-3xl text-katana-green mb-3"></i>
+        <h3 class="text-3xl font-extrabold text-white mb-1"><span class="counter" data-target="24">0</span>/7</h3>
+        <p class="text-gray-400 text-xs uppercase tracking-wider">Fast Delivery</p>
       </div>
-      <div class="stat-card p-8 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="300">
-        <i class="fas fa-globe text-4xl text-katana-green mb-3"></i>
-        <h3 class="text-3xl font-extrabold text-white mb-1">Global Sourcing</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-wider">Parts Within 7 Days</p>
+      <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fas fa-globe text-3xl text-katana-green mb-3"></i>
+        <h3 class="text-3xl font-extrabold text-white mb-1"><span class="counter" data-target="7">0</span> Days</h3>
+        <p class="text-gray-400 text-xs uppercase tracking-wider">Global Sourcing</p>
+      </div>
+      <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="300">
+        <i class="fas fa-users-gear text-3xl text-katana-green mb-3"></i>
+        <h3 class="text-3xl font-extrabold text-white mb-1"><span class="counter" data-target="500">0</span>+</h3>
+        <p class="text-gray-400 text-xs uppercase tracking-wider">Happy Farmers</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 3. Modern Swiper Showcase -->
-<section id="showcase" class="py-24 bg-katana-dark overflow-hidden relative">
-  <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-katana-blue/20 to-transparent pointer-events-none"></div>
+<section id="showcase" class="py-24 tech-mesh overflow-hidden relative">
+  <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-katana-blue/10 to-transparent pointer-events-none"></div>
   <div class="container mx-auto px-6 mb-12 text-center" data-aos="fade-up">
     <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Featured Tractor Brands</h2>
     <p class="text-gray-400">Built to perform. Built to last.</p>
+    <div class="w-24 h-1 bg-katana-green mx-auto mt-4"></div>
   </div>
 
   <div class="swiper-container showcase-swiper px-4 md:px-12">
     <div class="swiper-wrapper">
-      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group">
+      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group border border-white/10">
         <img src="https://z-cdn-media.chatglm.cn/files/f2641f95-3c75-4fc4-a6ba-502528be0f5d.png?auth_key=1886137054-0762546f7fd942d6a333f7f7514ab8fc-0-cec71d9c1a779218f5307bf22a19c6d1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Mahindra">
-        <div class="absolute inset-0 bg-gradient-to-t from-katana-dark/90 to-transparent flex items-end p-6">
+        <div class="absolute inset-0 bg-gradient-to-t from-katana-darker via-katana-darker/50 to-transparent flex items-end p-6">
           <div>
             <span class="text-katana-green text-sm font-bold uppercase tracking-widest">Power that drives success</span>
             <h3 class="text-white text-2xl font-extrabold">Mahindra Tractors</h3>
           </div>
         </div>
       </div>
-      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group">
+      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group border border-white/10">
         <img src="https://z-cdn-media.chatglm.cn/files/f6593310-6994-4401-bedd-022ca43a72b9.png?auth_key=1886137054-d8e9555704094932a9189a31c2be4997-0-31a863d4a30be363669acadccc41bc09" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="New Holland">
-        <div class="absolute inset-0 bg-gradient-to-t from-katana-dark/90 to-transparent flex items-end p-6">
+        <div class="absolute inset-0 bg-gradient-to-t from-katana-darker via-katana-darker/50 to-transparent flex items-end p-6">
           <div>
             <span class="text-katana-green text-sm font-bold uppercase tracking-widest">Stronger. Smarter.</span>
             <h3 class="text-white text-2xl font-extrabold">New Holland</h3>
           </div>
         </div>
       </div>
-      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group">
+      <div class="swiper-slide w-72 h-80 rounded-2xl overflow-hidden relative group border border-white/10">
         <img src="https://z-cdn-media.chatglm.cn/files/f89b9055-bdc1-4bc7-893f-d4b2c9c7f342.png?auth_key=1886137054-a2f3e742c65d47c887db40f125c0c723-0-6de8e2637a085b2dcc577107e7942de4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Swaraj">
-        <div class="absolute inset-0 bg-gradient-to-t from-katana-dark/90 to-transparent flex items-end p-6">
+        <div class="absolute inset-0 bg-gradient-to-t from-katana-darker via-katana-darker/50 to-transparent flex items-end p-6">
           <div>
             <span class="text-katana-green text-sm font-bold uppercase tracking-widest">Built to perform</span>
             <h3 class="text-white text-2xl font-extrabold">Swaraj Tractors</h3>
@@ -413,67 +469,67 @@ body {
 </section>
 
 <!-- 4. Brands Section -->
-<section id="brands" class="py-16 bg-white border-b border-gray-100">
+<section id="brands" class="py-16 bg-katana-darker border-b border-white/5">
   <div class="container mx-auto px-6">
-    <h3 class="text-center text-gray-400 font-semibold text-sm uppercase tracking-widest mb-10">Official Parts Distributor For</h3>
+    <h3 class="text-center text-gray-500 font-semibold text-sm uppercase tracking-widest mb-10">Official Parts Distributor For</h3>
     <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">Mahindra</span>
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">Swaraj</span>
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">New Holland</span>
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">Farmtrac</span>
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">Case</span>
-      <span class="text-2xl md:text-4xl font-extrabold text-gray-300 hover:text-katana-blue transition cursor-pointer transform hover:scale-110">Ford</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">Mahindra</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">Swaraj</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">New Holland</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">Farmtrac</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">Case</span>
+      <span class="text-2xl md:text-4xl font-extrabold text-gray-600 hover:text-katana-green transition cursor-pointer transform hover:scale-110">Ford</span>
     </div>
   </div>
 </section>
 
 <!-- 5. Why Choose Katana -->
-<section id="about" class="py-24 bg-slate-50 relative">
+<section id="about" class="py-24 tech-mesh relative">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16" data-aos="fade-up">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-katana-dark mb-4">Why Choose Katana?</h2>
+      <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-gradient-title">Why Choose Katana?</h2>
       <div class="w-24 h-1 bg-katana-green mx-auto"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div data-aos="fade-up" data-aos-delay="100" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 bg-katana-blue/10 rounded-xl flex items-center justify-center mb-6">
-          <i class="fas fa-cogs text-3xl text-katana-blue"></i>
+      <div data-aos="fade-up" data-aos-delay="100" class="stat-card p-8 rounded-2xl transition-all duration-300">
+        <div class="w-16 h-16 bg-katana-green/10 rounded-xl flex items-center justify-center mb-6 border border-katana-green/20">
+          <i class="fas fa-cogs text-3xl text-katana-green"></i>
         </div>
-        <h3 class="text-xl font-bold mb-3 text-katana-dark">100% Genuine Parts</h3>
-        <p class="text-gray-500 leading-relaxed">We supply only authentic parts to ensure your machinery lasts longer and performs better.</p>
+        <h3 class="text-xl font-bold mb-3 text-white">100% Genuine Parts</h3>
+        <p class="text-gray-400 leading-relaxed">We supply only authentic parts to ensure your machinery lasts longer and performs better.</p>
       </div>
 
-      <div data-aos="fade-up" data-aos-delay="200" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 bg-katana-green/10 rounded-xl flex items-center justify-center mb-6">
+      <div data-aos="fade-up" data-aos-delay="200" class="stat-card p-8 rounded-2xl transition-all duration-300">
+        <div class="w-16 h-16 bg-katana-green/10 rounded-xl flex items-center justify-center mb-6 border border-katana-green/20">
           <i class="fas fa-shipping-fast text-3xl text-katana-green"></i>
         </div>
-        <h3 class="text-xl font-bold mb-3 text-katana-dark">Free & Fast Delivery</h3>
-        <p class="text-gray-500 leading-relaxed">Quick turnaround times to minimize downtime for your farming operations nationwide.</p>
+        <h3 class="text-xl font-bold mb-3 text-white">Free & Fast Delivery</h3>
+        <p class="text-gray-400 leading-relaxed">Quick turnaround times to minimize downtime for your farming operations nationwide.</p>
       </div>
 
-      <div data-aos="fade-up" data-aos-delay="300" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 bg-katana-blue/10 rounded-xl flex items-center justify-center mb-6">
-          <i class="fas fa-globe text-3xl text-katana-blue"></i>
+      <div data-aos="fade-up" data-aos-delay="300" class="stat-card p-8 rounded-2xl transition-all duration-300">
+        <div class="w-16 h-16 bg-katana-green/10 rounded-xl flex items-center justify-center mb-6 border border-katana-green/20">
+          <i class="fas fa-globe text-3xl text-katana-green"></i>
         </div>
-        <h3 class="text-xl font-bold mb-3 text-katana-dark">Global Sourcing</h3>
-        <p class="text-gray-500 leading-relaxed">Can't find it locally? We source genuine parts worldwide and deliver within a week.</p>
+        <h3 class="text-xl font-bold mb-3 text-white">Global Sourcing</h3>
+        <p class="text-gray-400 leading-relaxed">Can't find it locally? We source genuine parts worldwide and deliver within a week.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 6. Featured Products with Live Search & Filter -->
-<section id="products" class="py-24 bg-white">
+<section id="products" class="py-24 tech-mesh relative">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-katana-dark mb-4">Featured Spare Parts & Prices</h2>
+      <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-gradient-title">Featured Spare Parts & Prices</h2>
       <div class="w-24 h-1 bg-katana-green mx-auto"></div>
     </div>
 
     <div class="max-w-xl mx-auto mb-12">
       <div class="relative">
-        <input type="text" id="searchInput" placeholder="Search by Part Name (e.g., Water Pump, Rota)" class="search-input w-full pl-12 pr-4 py-4 rounded-full border-2 border-gray-100 focus:outline-none transition-all shadow-sm text-katana-dark">
+        <input type="text" id="searchInput" placeholder="Search by Part Name (e.g., Water Pump, Rota)" class="search-input w-full pl-12 pr-4 py-4 rounded-full focus:outline-none shadow-sm">
         <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-katana-gray text-xl"></i>
       </div>
     </div>
@@ -490,94 +546,94 @@ body {
 </section>
 
 <!-- 7. Special Orders -->
-<section id="special-orders" class="py-24 bg-gradient-to-br from-katana-blue via-katana-blue-light to-katana-dark relative overflow-hidden grid-bg">
-  <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-48 -mt-48 blur-3xl"></div>
-  <div class="absolute bottom-0 left-0 w-96 h-96 bg-katana-green/10 rounded-full -ml-48 -mb-48 blur-3xl"></div>
+<section id="special-orders" class="py-24 bg-katana-darker relative overflow-hidden grid-bg">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-katana-green/10 rounded-full -mr-48 -mt-48 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-katana-blue/10 rounded-full -ml-48 -mb-48 blur-3xl"></div>
 
   <div class="container mx-auto px-6 relative z-10 text-center text-white" data-aos="zoom-in">
-    <div class="inline-block mb-6">
-      <i class="fas fa-globe text-6xl text-katana-green"></i>
+    <div class="inline-block mb-6 p-4 bg-katana-green/10 border border-katana-green/30 rounded-full">
+      <i class="fas fa-globe text-5xl text-katana-green"></i>
     </div>
-    <h2 class="text-3xl md:text-6xl font-extrabold mb-4">Can't Find Your Spare Part?</h2>
-    <p class="text-xl text-blue-100 mb-6 max-w-3xl mx-auto font-light">We Source Genuine Parts Worldwide.</p>
-    <p class="text-sm text-blue-200 mb-10 max-w-xl mx-auto opacity-80">Delivery within approximately one week.* <br>(*Subject to supplier availability. A 40% upfront payment is required to initiate the special order process.)</p>
-    <a href="https://wa.me/255717872888?text=I%20need%20a%20Special%20Order" target="_blank" class="bg-katana-green text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-green-600 transition-all transform hover:scale-105 inline-flex items-center space-x-2 shadow-2xl">
+    <h2 class="text-3xl md:text-6xl font-extrabold mb-4 text-gradient-title">Can't Find Your Spare Part?</h2>
+    <p class="text-xl text-gray-300 mb-6 max-w-3xl mx-auto font-light">We Source Genuine Parts Worldwide.</p>
+    <p class="text-sm text-gray-500 mb-10 max-w-xl mx-auto">Delivery within approximately one week.* <br>(*Subject to supplier availability. A 40% upfront payment is required to initiate the special order process.)</p>
+    <a href="https://wa.me/255717872888?text=I%20need%20a%20Special%20Order" target="_blank" class="btn-primary text-white px-10 py-4 rounded-full text-lg font-bold inline-flex items-center space-x-2">
       <i class="fab fa-whatsapp text-2xl"></i> <span>Order Now via WhatsApp</span>
     </a>
   </div>
 </section>
 
 <!-- 8. How to Order -->
-<section class="py-24 bg-slate-50">
+<section class="py-24 tech-mesh">
   <div class="container mx-auto px-6">
     <div class="text-center mb-20" data-aos="fade-up">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-katana-dark mb-4">How to Order</h2>
-      <p class="text-gray-500 max-w-2xl mx-auto">Fast and easy process to get your tractor back to work.</p>
+      <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-gradient-title">How to Order</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Fast and easy process to get your tractor back to work.</p>
       <div class="w-24 h-1 bg-katana-green mx-auto mt-4"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-12 relative">
       <div data-aos="fade-up" data-aos-delay="100" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-blue text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-blue-200 transform hover:scale-110 transition-transform">1</div>
-        <h4 class="font-bold text-katana-dark mb-2">Part Number</h4>
-        <p class="text-sm text-gray-500">Send the exact part number.</p>
+        <div class="w-20 h-20 bg-slate-800/50 border border-katana-green/30 text-katana-green rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 hover:bg-katana-green hover:text-white transition-all">1</div>
+        <h4 class="font-bold text-white mb-2">Part Number</h4>
+        <p class="text-sm text-gray-400">Send the exact part number.</p>
       </div>
       <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-blue text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-blue-200 transform hover:scale-110 transition-transform">2</div>
-        <h4 class="font-bold text-katana-dark mb-2">Product Photo</h4>
-        <p class="text-sm text-gray-500">Clear photo of the part needed.</p>
+        <div class="w-20 h-20 bg-slate-800/50 border border-katana-green/30 text-katana-green rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 hover:bg-katana-green hover:text-white transition-all">2</div>
+        <h4 class="font-bold text-white mb-2">Product Photo</h4>
+        <p class="text-sm text-gray-400">Clear photo of the part needed.</p>
       </div>
       <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-blue text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-blue-200 transform hover:scale-110 transition-transform">3</div>
-        <h4 class="font-bold text-katana-dark mb-2">Tractor Model</h4>
-        <p class="text-sm text-gray-500">E.g., Mahindra, Ford, etc.</p>
+        <div class="w-20 h-20 bg-slate-800/50 border border-katana-green/30 text-katana-green rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 hover:bg-katana-green hover:text-white transition-all">3</div>
+        <h4 class="font-bold text-white mb-2">Tractor Model</h4>
+        <p class="text-sm text-gray-400">E.g., Mahindra, Ford, etc.</p>
       </div>
       <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-blue text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-blue-200 transform hover:scale-110 transition-transform">4</div>
-        <h4 class="font-bold text-katana-dark mb-2">Quotation</h4>
-        <p class="text-sm text-gray-500">Receive price estimate.</p>
+        <div class="w-20 h-20 bg-slate-800/50 border border-katana-green/30 text-katana-green rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 hover:bg-katana-green hover:text-white transition-all">4</div>
+        <h4 class="font-bold text-white mb-2">Quotation</h4>
+        <p class="text-sm text-gray-400">Receive price estimate.</p>
       </div>
       <div data-aos="fade-up" data-aos-delay="500" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-blue text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-blue-200 transform hover:scale-110 transition-transform">5</div>
-        <h4 class="font-bold text-katana-dark mb-2">Confirm Order</h4>
-        <p class="text-sm text-gray-500">Approve and process payment.</p>
+        <div class="w-20 h-20 bg-slate-800/50 border border-katana-green/30 text-katana-green rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 hover:bg-katana-green hover:text-white transition-all">5</div>
+        <h4 class="font-bold text-white mb-2">Confirm Order</h4>
+        <p class="text-sm text-gray-400">Approve and process payment.</p>
       </div>
       <div data-aos="fade-up" data-aos-delay="600" class="flex flex-col items-center text-center relative z-10">
-        <div class="w-20 h-20 bg-katana-green text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl shadow-green-200 transform hover:scale-110 transition-transform">6</div>
-        <h4 class="font-bold text-katana-dark mb-2">Delivery</h4>
-        <p class="text-sm text-gray-500">Nationwide shipping.</p>
+        <div class="w-20 h-20 bg-katana-green/20 border border-katana-green text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl transform hover:scale-110 transition-all">6</div>
+        <h4 class="font-bold text-white mb-2">Delivery</h4>
+        <p class="text-sm text-gray-400">Nationwide shipping.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 9. Customer Support Banner -->
-<section id="contact" class="py-24 bg-katana-dark text-white relative overflow-hidden">
+<section id="contact" class="py-24 bg-katana-darker text-white relative overflow-hidden">
   <div class="absolute inset-0 grid-bg opacity-30"></div>
   <div class="container mx-auto px-6 text-center relative z-10">
-    <h2 class="text-3xl md:text-5xl font-bold mb-4" data-aos="fade-up">Need Help? Contact Our Support Team</h2>
+    <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gradient-title" data-aos="fade-up">Need Help? Contact Our Support Team</h2>
     <p class="text-gray-400 max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">Available to assist you with any inquiries, orders, or technical support.</p>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
-      <div data-aos="flip-left" class="bg-slate-800/80 backdrop-blur p-8 rounded-2xl border border-slate-700 hover:border-katana-green transition-colors">
-        <i class="fas fa-user-tie text-4xl text-katana-blue mb-4"></i>
-        <h4 class="text-xl font-bold mb-1">Omar Faraji</h4>
+      <div data-aos="flip-left" class="stat-card p-8 rounded-2xl">
+        <i class="fas fa-user-tie text-4xl text-katana-green mb-4"></i>
+        <h4 class="text-xl font-bold mb-1 text-white">Omar Faraji</h4>
         <p class="text-gray-400 mb-4 text-sm">Mkurugenzi</p>
         <a href="tel:+255717872888" class="text-lg hover:text-katana-green transition flex items-center justify-center gap-2">
           <i class="fas fa-phone-volume"></i> +255 717 872 888
         </a>
       </div>
-      <div data-aos="flip-left" data-aos-delay="150" class="bg-slate-800/80 backdrop-blur p-8 rounded-2xl border border-slate-700 hover:border-katana-green transition-colors">
-        <i class="fas fa-user-tie text-4xl text-katana-blue mb-4"></i>
-        <h4 class="text-xl font-bold mb-1">Simon Nembo</h4>
+      <div data-aos="flip-left" data-aos-delay="150" class="stat-card p-8 rounded-2xl">
+        <i class="fas fa-user-tie text-4xl text-katana-green mb-4"></i>
+        <h4 class="text-xl font-bold mb-1 text-white">Simon Nembo</h4>
         <p class="text-gray-400 mb-4 text-sm">Business Developer</p>
         <a href="tel:+255687807994" class="text-lg hover:text-katana-green transition flex items-center justify-center gap-2">
           <i class="fas fa-phone-volume"></i> +255 687 807 994
         </a>
       </div>
-      <div data-aos="flip-left" data-aos-delay="300" class="bg-slate-800/80 backdrop-blur p-8 rounded-2xl border border-slate-700 hover:border-katana-green transition-colors">
-        <i class="fas fa-headset text-4xl text-katana-blue mb-4"></i>
-        <h4 class="text-xl font-bold mb-1">Office Phone</h4>
+      <div data-aos="flip-left" data-aos-delay="300" class="stat-card p-8 rounded-2xl">
+        <i class="fas fa-headset text-4xl text-katana-green mb-4"></i>
+        <h4 class="text-xl font-bold mb-1 text-white">Office Phone</h4>
         <p class="text-gray-400 mb-4 text-sm">General Inquiries</p>
         <a href="tel:+255744625555" class="text-lg hover:text-katana-green transition flex items-center justify-center gap-2">
           <i class="fas fa-phone-volume"></i> +255 744 625 555
@@ -592,11 +648,11 @@ body {
 </section>
 
 <!-- 10. Footer -->
-<footer class="bg-slate-900 text-gray-400 pt-20 pb-8 border-t border-slate-800">
+<footer class="bg-slate-950 text-gray-400 pt-20 pb-8 border-t border-white/5">
   <div class="container mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
       <div data-aos="fade-up">
-        <img src="https://z-cdn-media.chatglm.cn/files/33b33a35-c1ce-4378-8358-b19ace5de102.jpg?auth_key=1886133914-f11abb299dad418597b049602d764f0e-0-2d5aead3dacfc618c77e191645cd9728" alt="Logo" class="h-14 w-14 object-cover rounded-full mb-4">
+        <img src="https://z-cdn-media.chatglm.cn/files/33b33a35-c1ce-4378-8358-b19ace5de102.jpg?auth_key=1886133914-f11abb299dad418597b049602d764f0e-0-2d5aead3dacfc618c77e191645cd9728" alt="Logo" class="h-14 w-14 object-cover rounded-full mb-4 border-2 border-katana-green/30">
         <h5 class="text-white font-bold mb-2">KATANA GENERAL INVESTMENT</h5>
         <p class="text-sm">Genuine Parts. Reliable Performance. Trusted Agricultural Partner in Tanzania.</p>
       </div>
@@ -604,29 +660,29 @@ body {
       <div data-aos="fade-up" data-aos-delay="100">
         <h5 class="text-white font-bold mb-4 uppercase text-sm">Our Branches</h5>
         <ul class="space-y-3 text-sm">
-          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-blue mt-1"></i> <span>HQ: Ilala, Dar es Salaam</span></li>
-          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-blue mt-1"></i> <span>Dodoma Branch</span></li>
-          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-blue mt-1"></i> <span>Lindi Branch</span></li>
+          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-green mt-1"></i> <span>HQ: Ilala, Dar es Salaam</span></li>
+          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-green mt-1"></i> <span>Dodoma Branch</span></li>
+          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-katana-green mt-1"></i> <span>Lindi Branch</span></li>
         </ul>
       </div>
 
       <div data-aos="fade-up" data-aos-delay="200">
         <h5 class="text-white font-bold mb-4 uppercase text-sm">Quick Links</h5>
         <ul class="space-y-2 text-sm">
-          <li><a href="#home" class="hover:text-white transition">Home</a></li>
-          <li><a href="#products" class="hover:text-white transition">Products</a></li>
-          <li><a href="#special-orders" class="hover:text-white transition">Special Orders</a></li>
-          <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+          <li><a href="#home" class="hover:text-katana-green transition">Home</a></li>
+          <li><a href="#products" class="hover:text-katana-green transition">Products</a></li>
+          <li><a href="#special-orders" class="hover:text-katana-green transition">Special Orders</a></li>
+          <li><a href="#about" class="hover:text-katana-green transition">About Us</a></li>
         </ul>
       </div>
 
       <div data-aos="fade-up" data-aos-delay="300">
         <h5 class="text-white font-bold mb-4 uppercase text-sm">Find Us</h5>
-        <div class="w-full h-40 bg-slate-800 rounded-lg overflow-hidden border border-slate-700 mb-4">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31708.993917183745!2d39.2644!3d-6.8161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4d3a0a0a0a0a%3A0x0!2sIlala%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1615900000000!5m2!1sen!2stz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="w-full h-40 bg-slate-800 rounded-lg overflow-hidden border border-white/10 mb-4">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31708.993917183745!2d39.2644!3d-6.8161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4d3a0a0a0a0a%3A0x0!2sIlala%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1615900000000!5m2!1sen!2stz" width="100%" height="100%" style="border:0; filter: invert(0.9) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="flex space-x-4 text-xl">
-          <a href="https://www.facebook.com/share/14jAvLaPop9/" target="_blank" class="text-blue-400 hover:bg-katana-blue hover:text-white w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center transition-all">
+          <a href="https://www.facebook.com/share/14jAvLaPop9/" target="_blank" class="text-blue-400 hover:bg-blue-500 hover:text-white w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center transition-all">
             <i class="fab fa-facebook-f"></i>
           </a>
           <a href="https://www.instagram.com/katanainvestment?igsh=MXZ3ejl6bHVyNGQ0dQ==" target="_blank" class="text-pink-500 hover:bg-pink-600 hover:text-white w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center transition-all">
@@ -639,7 +695,7 @@ body {
       </div>
     </div>
 
-    <div class="border-t border-slate-800 pt-8 text-center text-sm">
+    <div class="border-t border-white/5 pt-8 text-center text-sm">
       <p>&copy; 2024 Katana General Investment. All Rights Reserved. | Designed with <i class="fas fa-heart text-red-500"></i> for Tanzania's Farmers</p>
     </div>
   </div>
@@ -745,19 +801,43 @@ const swiper = new Swiper('.showcase-swiper', {
   }
 });
 
-// --- Dynamic Products Data with Correct Real Images ---
+// --- Stats Counter Animation ---
+const counters = document.querySelectorAll('.counter');
+const speed = 200;
+
+const observerOptions = {
+  threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counter = entry.target;
+      const target = +counter.getAttribute('data-target');
+      let count = 0;
+      const updateCount = () => {
+        const inc = target / speed;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          count += inc;
+          setTimeout(updateCount, 10);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+      observer.unobserve(counter);
+    }
+  });
+}, observerOptions);
+
+counters.forEach(c => observer.observe(c));
+
+// --- Dynamic Products Data with All Correct Real Images ---
 const products = [
-  // Picha halisi zilizotolewa
-  { name: "Rota", price: 200000, model: "Universal", partNo: "RT-200", img: "https://z-cdn-media.chatglm.cn/files/1b51e3a9-8dfd-46ff-856a-142e01260e7d.jpg?auth_key=1886299264-a86b49ef8e454cacaca990f16a0b8ecc-0-2372e14964de8e357738faacf6f561d9", delivery: false },
-  { name: "Fuel Tank Cap", price: 25000, model: "Mahindra", partNo: "00751537C91", img: "https://z-cdn-media.chatglm.cn/files/dece4028-e5a9-49ed-be56-ad8707a44983.jpg?auth_key=1886299264-c1addbd10c764cd787750438d2735dce-0-bbaba8b018446b40146677d85a38b913", delivery: false },
-  { name: "Friction Brake Disc", price: 60000, model: "Universal", partNo: "FB-60", img: "https://z-cdn-media.chatglm.cn/files/04125779-659c-4c9a-bfc3-85ec37f9ba7a.jpg?auth_key=1886299264-3cc40775787d4e369c0566317262757f-0-3f356096a06af803f646dac37786cc79", delivery: true },
-  { name: "Water Separator", price: 45000, model: "Universal", partNo: "WS-450", img: "https://z-cdn-media.chatglm.cn/files/edbe4b39-adbe-4f51-bc03-8b49a20207ea.jpg?auth_key=1886299264-2bf2ed52cf52421a97a7221af1cffd61-0-c7659313b45f9fd8b38e40f4a130cd53", delivery: false },
-  { name: "Clutch Pad Material", price: 10000, model: "Universal", partNo: "CPM-10", img: "https://z-cdn-media.chatglm.cn/files/958e4190-3a95-4625-998e-de7e082b9c8a.jpg?auth_key=1886299264-430c98d3bf0844fcbf5b03d216b9f8df-0-82354012b89cfb1916586d1938fe8339", delivery: false },
-  
-  // Picha zilizopo kutumia mfumo wa awali kwa bidhaa zilizokosekana picha mpya
   { name: "Gear Pump", price: 1000000, model: "Swaraj", partNo: "IND250103024", img: "https://z-cdn-media.chatglm.cn/files/8e41786a-53e9-48fa-8ee9-38053b5a053b.jpg?auth_key=1886133914-d53af3094b8d4fed848d1257589e7119-0-14acab744b4bcc524e48acd12bcbb8c9", delivery: true },
   { name: "Hydraulic Pump", price: 1000000, model: "New Holland", partNo: "V1 Series", img: "https://z-cdn-media.chatglm.cn/files/70deea95-cf45-4ec6-9290-76ea777a0495.jpg?auth_key=1886133914-034da7e79a8e45cbad0d5d1691451241-0-c73d6c760196aec92731f262ec8b6663", delivery: true },
-  { name: "Turbocharger", price: 1300000, model: "Universal", partNo: "TC-902", img: "https://z-cdn-media.chatglm.cn/files/70deea95-cf45-4ec6-9290-76ea777a0495.jpg?auth_key=1886133914-034da7e79a8e45cbad0d5d1691451241-0-c73d6c760196aec92731f262ec8b6663", delivery: false },
+  { name: "Turbocharger", price: 1300000, model: "Universal", partNo: "TC-902", img: "https://z-cdn-media.chatglm.cn/files/5ae1e795-1e2c-45d3-8142-84de8d7e91c2.jpg?auth_key=1886300226-2766de6da55140228a621503c59e13a0-0-512a849e39045ffa040325f22636323c", delivery: false },
   { name: "Clutch Plate", price: 600000, model: "Mahindra", partNo: "CL-600", img: "https://z-cdn-media.chatglm.cn/files/0c8746f8-2b2d-4e17-af8f-8a6bf6c68a9b.jpg?auth_key=1886133914-33d81eb878bd44428bdb2db4edafea99-0-f7ac4dc1683fc5038ad78f49b2445a18", delivery: false },
   { name: "Clutch Plate 75HP", price: 700000, model: "Mahindra", partNo: "CL-75HP", img: "https://z-cdn-media.chatglm.cn/files/0c8746f8-2b2d-4e17-af8f-8a6bf6c68a9b.jpg?auth_key=1886133914-33d81eb878bd44428bdb2db4edafea99-0-f7ac4dc1683fc5038ad78f49b2445a18", delivery: false },
   { name: "Release Bearing Complete", price: 720000, model: "Mahindra", partNo: "RB60HP", img: "https://z-cdn-media.chatglm.cn/files/d0b0c41b-bc21-47cf-801d-b0a1fdb7a47f.jpg?auth_key=1886137054-8779f376163441dcb2988b404f396db4-0-f94fb5869ae9fe548810624a500f62d9", delivery: true },
@@ -765,12 +845,17 @@ const products = [
   { name: "Water Pump Swaraj", price: 200000, model: "Swaraj", partNo: "WP-SW123", img: "https://z-cdn-media.chatglm.cn/files/eee8b8cd-3865-4482-925c-180bedb465cc.jpg?auth_key=1886133914-55802d90631941dd8dfbb6ad57b6a95b-0-8be79ec502dacc07e534725fe4ff7c4a", delivery: false },
   { name: "Intermediate Bearing", price: 100000, model: "Universal", partNo: "IB-100", img: "https://z-cdn-media.chatglm.cn/files/d0b0c41b-bc21-47cf-801d-b0a1fdb7a47f.jpg?auth_key=1886137054-8779f376163441dcb2988b404f396db4-0-f94fb5869ae9fe548810624a500f62d9", delivery: false },
   { name: "Rocker Arm", price: 100000, model: "New Holland", partNo: "RA-100", img: "https://z-cdn-media.chatglm.cn/files/8e41786a-53e9-48fa-8ee9-38053b5a053b.jpg?auth_key=1886133914-d53af3094b8d4fed848d1257589e7119-0-14acab744b4bcc524e48acd12bcbb8c9", delivery: false },
-  { name: "Spindle 50HP", price: 340000, model: "Mahindra", partNo: "SP-50", img: "https://z-cdn-media.chatglm.cn/files/70deea95-cf45-4ec6-9290-76ea777a0495.jpg?auth_key=1886133914-034da7e79a8e45cbad0d5d1691451241-0-c73d6c760196aec92731f262ec8b6663", delivery: false },
+  { name: "Rota", price: 200000, model: "Universal", partNo: "RT-200", img: "https://z-cdn-media.chatglm.cn/files/1b51e3a9-8dfd-46ff-856a-142e01260e7d.jpg?auth_key=1886300226-2a556102c1d24c75889fdc1ae28ff8aa-0-4716d6e2f12e0fae674582da3d249903", delivery: false },
+  { name: "Spindle 50HP", price: 340000, model: "Mahindra", partNo: "SP-50", img: "https://z-cdn-media.chatglm.cn/files/6b1fd8bd-f0fc-4c53-99ef-2a13c848cc53.jpg?auth_key=1886300226-9ff650e4d5c24da7b30863245efbe476-0-136b55f5d9591162ca0e5b714aff661b", delivery: false },
   { name: "Oil Filter", price: 35000, model: "Swaraj", partNo: "006002508F1", img: "https://z-cdn-media.chatglm.cn/files/866f1680-2db6-40ae-a79e-7a7ee088e20f.jpg?auth_key=1886133914-361f1388ed6d46b8a6f949f83ca77313-0-abf8bd3c90122c0db5918ea75c3d6bdf", delivery: false },
-  { name: "Connector", price: 55000, model: "Mahindra", partNo: "CN-55", img: "https://z-cdn-media.chatglm.cn/files/8e41786a-53e9-48fa-8ee9-38053b5a053b.jpg?auth_key=1886133914-d53af3094b8d4fed848d1257589e7119-0-14acab744b4bcc524e48acd12bcbb8c9", delivery: false },
-  { name: "Dipstick", price: 25000, model: "Swaraj", partNo: "DP-25", img: "https://z-cdn-media.chatglm.cn/files/866f1680-2db6-40ae-a79e-7a7ee088e20f.jpg?auth_key=1886133914-361f1388ed6d46b8a6f949f83ca77313-0-abf8bd3c90122c0db5918ea75c3d6bdf", delivery: false },
+  { name: "Water Separator", price: 45000, model: "Universal", partNo: "WS-450", img: "https://z-cdn-media.chatglm.cn/files/edbe4b39-adbe-4f51-bc03-8b49a20207ea.jpg?auth_key=1886300226-0ed60b28b2d44bef86753fdd0a6fb5fa-0-104f5dd5d404925bd4c896cfc365b8e0", delivery: false },
+  { name: "Connector", price: 55000, model: "Mahindra", partNo: "007600630D1", img: "https://z-cdn-media.chatglm.cn/files/c0a75ac7-4a0c-4bc2-b573-a319bb6faa04.jpg?auth_key=1886300226-48ad9987ffcb4de3a47d02ad6a095430-0-d6173ccc1af1ef1d198aaa2512d85d87", delivery: false },
+  { name: "Dipstick", price: 25000, model: "Mahindra", partNo: "DP-25", img: "https://z-cdn-media.chatglm.cn/files/88397d2a-0bd6-4d33-b0c6-5c2341e9745e.jpg?auth_key=1886300226-1fc3f81ead1746bc8392e7a9148be694-0-4f7cf327b4366fd26610cd59fd345647", delivery: false },
+  { name: "Fuel Tank Cap", price: 25000, model: "Mahindra", partNo: "00751537C91", img: "https://z-cdn-media.chatglm.cn/files/dece4028-e5a9-49ed-be56-ad8707a44983.jpg?auth_key=1886300226-0f108572419241769cd8fb74d33a6394-0-bf1e1f17ea495360236b71c59af7a57b", delivery: false },
   { name: "Oil Seal", price: 10000, model: "Universal", partNo: "OS-10", img: "https://z-cdn-media.chatglm.cn/files/d0b0c41b-bc21-47cf-801d-b0a1fdb7a47f.jpg?auth_key=1886137054-8779f376163441dcb2988b404f396db4-0-f94fb5869ae9fe548810624a500f62d9", delivery: false },
-  { name: "Rocker Shaft Bush", price: 15000, model: "New Holland", partNo: "RSB-15", img: "https://z-cdn-media.chatglm.cn/files/d0b0c41b-bc21-47cf-801d-b0a1fdb7a47f.jpg?auth_key=1886137054-8779f376163441dcb2988b404f396db4-0-f94fb5869ae9fe548810624a500f62d9", delivery: false }
+  { name: "Clutch Pad Material", price: 10000, model: "Universal", partNo: "CPM-10", img: "https://z-cdn-media.chatglm.cn/files/afbb8311-0936-41bb-af36-48d44752bd85.jpg?auth_key=1886300226-08e60b9887d6497bac30174a931c3547-0-2d9797d5e0d5708a1558008b7d3faafc", delivery: false },
+  { name: "Rocker Shaft Bush", price: 15000, model: "New Holland", partNo: "RSB-15", img: "https://z-cdn-media.chatglm.cn/files/d0b0c41b-bc21-47cf-801d-b0a1fdb7a47f.jpg?auth_key=1886137054-8779f376163441dcb2988b404f396db4-0-f94fb5869ae9fe548810624a500f62d9", delivery: false },
+  { name: "Friction Brake Disc", price: 60000, model: "Universal", partNo: "FB-60", img: "https://z-cdn-media.chatglm.cn/files/04125779-659c-4c9a-bfc3-85ec37f9ba7a.jpg?auth_key=1886300226-5b399d2ea4a44258b989813cff55cc62-0-ba7851eee5c2fabad5b0b9005e0726f0", delivery: true }
 ];
 
 // --- Render Products Dynamically ---
@@ -797,36 +882,40 @@ function renderProducts(filter = '') {
       const waLink = `https://wa.me/255717872888?text=Hello%20Katana%20General,%20I%20want%20to%20buy%20${encodeURIComponent(p.name)}%20(${p.partNo})%20for%20TZS%20${formatPrice(p.price)}`;
       
       const card = `
-        <div data-aos="fade-up" data-aos-delay="${(index % 4) * 100}" class="product-card rounded-2xl overflow-hidden shadow-sm relative flex flex-col">
-          <div class="absolute top-3 left-3 z-20 flex flex-col gap-2">
-            <span class="badge-original text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1"><i class="fas fa-check-circle"></i> Original</span>
-          </div>
-          ${p.delivery ? `<div class="absolute top-3 right-3 z-20"><span class="badge-free-delivery text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1"><i class="fas fa-truck"></i> Free Delivery</span></div>` : ''}
-          
-          <div class="relative h-56 overflow-hidden bg-gray-200">
-            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
-            <div class="absolute bottom-3 right-3 z-10 price-tag-img px-4 py-1.5 rounded-full text-sm font-bold">
-              TZS ${formatPrice(p.price)}
+        <div class="product-card-wrapper" data-aos="fade-up" data-aos-delay="${(index % 4) * 100}">
+          <div class="product-card rounded-2xl overflow-hidden shadow-sm relative flex flex-col h-full">
+            <div class="absolute top-3 left-3 z-20 flex flex-col gap-2">
+              <span class="badge-original text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1"><i class="fas fa-check-circle"></i> Original</span>
             </div>
-          </div>
-          
-          <div class="p-6 flex-grow flex flex-col bg-white">
-            <span class="text-xs text-katana-green font-bold uppercase tracking-wider">${p.model}</span>
-            <h3 class="font-bold text-lg text-katana-dark mb-1 mt-1">${p.name}</h3>
-            <p class="text-sm text-gray-400 mb-4">Part No: ${p.partNo}</p>
+            ${p.delivery ? `<div class="absolute top-3 right-3 z-20"><span class="badge-free-delivery text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1"><i class="fas fa-truck"></i> Free Delivery</span></div>` : ''}
             
-            <div class="mt-auto">
-              <div class="flex items-end justify-between mb-4">
-                <div class="flex flex-col">
-                  <span class="text-xs text-gray-400 uppercase tracking-wider">Price</span>
-                  <span class="text-xl font-extrabold text-price-gradient">
-                    TZS ${formatPrice(p.price)}
-                  </span>
-                </div>
+            <div class="relative h-56 overflow-hidden bg-slate-800">
+              <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 right-3 z-10 price-tag-img px-4 py-1.5 rounded-full text-sm font-bold">
+                TZS ${formatPrice(p.price)}
               </div>
-              <a href="${waLink}" target="_blank" class="block text-center btn-primary text-white py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2">
-                <i class="fab fa-whatsapp"></i> Order Now
-              </a>
+            </div>
+            
+            <div class="p-6 flex-grow flex flex-col bg-slate-900/50">
+              <span class="text-xs text-katana-green font-bold uppercase tracking-wider">${p.model}</span>
+              <h3 class="font-bold text-lg text-white mb-1 mt-1">${p.name}</h3>
+              <p class="text-sm text-gray-500 mb-4">Part No: ${p.partNo}</p>
+              
+              <div class="mt-auto">
+                <div class="flex items-end justify-between mb-4">
+                  <div class="flex flex-col">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider">Price</span>
+                    <span class="text-xl font-extrabold text-price-gradient">
+                      TZS ${formatPrice(p.price)}
+                    </span>
+                  </div>
+                  <i class="fas fa-arrow-right text-katana-green text-xl"></i>
+                </div>
+                <a href="${waLink}" target="_blank" class="block text-center btn-primary text-white py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2">
+                  <i class="fab fa-whatsapp"></i> Order Now
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -841,8 +930,34 @@ function renderProducts(filter = '') {
     noResults.classList.add('hidden');
   }
 
-  // Refresh AOS to apply animations to newly added elements
   AOS.refreshHard();
+
+  // --- 3D Tilt Effect on Hover ---
+  const cards = document.querySelectorAll('.product-card-wrapper');
+  cards.forEach(wrapper => {
+    const card = wrapper.querySelector('.product-card');
+    wrapper.addEventListener('mousemove', (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+      
+      card.style.transform = `translateY(-10px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      
+      // Update radial gradient position
+      card.style.setProperty('--mouse-x', `${(x/rect.width)*100}%`);
+      card.style.setProperty('--mouse-y', `${(y/rect.height)*100}%`);
+    });
+    
+    wrapper.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) perspective(1000px) rotateX(0) rotateY(0)';
+    });
+  });
 }
 
 // Initial render
